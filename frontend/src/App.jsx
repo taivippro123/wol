@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   const handleWakePC = async () => {
     // Gửi yêu cầu tới backend để gửi tín hiệu WoL
-    const response = await fetch('https://your-api-url/wake-pc');
+    const response = await fetch('https://wol-r5y9.onrender.com/wake-pc');
     if (response.ok) {
       alert('PC is waking up!');
     } else {
