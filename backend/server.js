@@ -2,7 +2,7 @@ const wol = require('wol');
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-
+const cors = require('cors');
 const macAddress = process.env.MAC 
 const publicIP = process.env.IP  
 const port = 9;
