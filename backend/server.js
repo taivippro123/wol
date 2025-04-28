@@ -6,6 +6,7 @@ const cors = require('cors');
 const macAddress = process.env.MAC 
 const publicIP = process.env.IP  
 const port = 9;
+require('dotenv').config();
 
 app.use(cors({
     origin: 'https://wol-tau.vercel.app', // Thêm domain frontend của bạn vào đây
@@ -13,15 +14,19 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'] // Cho phép các header này
   }));
 
-app.get('/wake-pc', (req, res) => {
-  // Gửi gói Magic Packet tới IP công cộng của router
-  wol.wake(macAddress, { address: publicIP, port: port }, (error) => {
-    if (error) {
-      return res.status(500).send('Error waking up PC');
-    }
-    res.send('PC is waking up');
+  app.get('/wake-pc', (req, res) => {
+    console.log('Sending Magic Packet to:', macAddress);
+    
+    wol.wake(macAddress, { address: publicIP, port: port }, (error) => {
+      if (error) {
+        console.error('Error waking up PC:', error);
+        return res.status(500).send('Error waking up PC');
+      }
+      console.log('Magic Packet sent successfully');
+      res.send('PC is waking up');
+    });
   });
-});
+  
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
