@@ -4,11 +4,14 @@ const app = express();
 const dotenv = require('dotenv');
 
 const macAddress = process.env.MAC 
-
 const publicIP = process.env.IP  
-
-
 const port = 9;
+
+app.use(cors({
+    origin: 'https://wol-tau.vercel.app', // Thêm domain frontend của bạn vào đây
+    methods: ['GET', 'POST'], // Cho phép các phương thức này (hoặc các phương thức khác nếu cần)
+    allowedHeaders: ['Content-Type', 'Authorization'] // Cho phép các header này
+  }));
 
 app.get('/wake-pc', (req, res) => {
   // Gửi gói Magic Packet tới IP công cộng của router
